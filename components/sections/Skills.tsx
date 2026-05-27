@@ -344,7 +344,7 @@ function SkillCharts() {
                 <LabelList
                   dataKey="level"
                   position="right"
-                  formatter={(v: number) => `${v}%`}
+                  formatter={(v: unknown) => `${v}%`}
                   style={{
                     fill: "rgba(0,255,136,0.7)",
                     fontSize: 10,

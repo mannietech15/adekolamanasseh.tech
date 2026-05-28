@@ -259,7 +259,7 @@ function SkillCharts() {
   });
 
   return (
-    <div className="space-y-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {/* ── WebGL Radar animation ── */}
       <ChartCard title="Knowledge Radar" subtitle="Live scan">
         <div className="h-[260px] rounded-xl overflow-hidden">
@@ -361,6 +361,15 @@ function SkillCharts() {
   );
 }
 
+// ─── Category meta (accent colours + decorative icon per category) ────────────
+const categoryMeta: Record<SkillCategory, { accent: string; glow: string; bg: string; icon: string; colSpan: string }> = {
+  languages:  { accent: "#38bdf8", glow: "rgba(56,189,248,0.15)",  bg: "rgba(56,189,248,0.04)",  icon: "{ }", colSpan: "" },
+  frameworks: { accent: "#00ff88", glow: "rgba(0,255,136,0.15)",   bg: "rgba(0,255,136,0.04)",   icon: "⚛",   colSpan: "md:col-span-2" },
+  databases:  { accent: "#c084fc", glow: "rgba(192,132,252,0.15)", bg: "rgba(192,132,252,0.04)", icon: "◈",   colSpan: "" },
+  cloudDevOps:{ accent: "#fb923c", glow: "rgba(251,146,60,0.15)",  bg: "rgba(251,146,60,0.04)",  icon: "⚙",   colSpan: "" },
+  other:      { accent: "#f472b6", glow: "rgba(244,114,182,0.15)", bg: "rgba(244,114,182,0.04)", icon: "✦",   colSpan: "" },
+};
+
 // ─── Exported section ─────────────────────────────────────────────────────────
 export function Skills() {
   const categories = Object.keys(skills) as SkillCategory[];
@@ -383,85 +392,123 @@ export function Skills() {
           <div className="flex-1 h-[1px] bg-gradient-to-r from-[var(--border)] to-transparent ml-4" />
         </motion.div>
 
-        {/* ── Top row: Orbit + Charts ── */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-16">
-          {/* Orbit visualization */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="flex items-center justify-center"
-          >
-            <OrbitRing />
-          </motion.div>
-
-          {/* Recharts knowledge charts */}
-          <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <SkillCharts />
-          </motion.div>
-        </div>
-
-        {/* ── Bottom row: skill pills by category ── */}
+        {/* ── Top row: Charts side by side ── */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="relative rounded-2xl p-6"
-          style={{
-            background: "linear-gradient(135deg, rgba(0,18,9,0.5) 0%, rgba(0,6,3,0.7) 100%)",
-            border: "1px solid rgba(0,255,136,0.1)",
-            backdropFilter: "blur(12px)",
-          }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
         >
-          <div className="absolute top-0 left-6 right-6 h-[1px] rounded-full"
-            style={{ background: "linear-gradient(90deg, transparent, rgba(0,255,136,0.2), transparent)" }}
-          />
-          <p className="text-[10px] font-mono text-[var(--accent-primary)] opacity-60 uppercase tracking-widest mb-6">Full stack</p>
-          <div className="space-y-8">
-            {categories.map((category, catIndex) => (
-              <motion.div
-                key={category}
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: catIndex * 0.08 }}
-              >
-                <h3 className="gradient-text-static text-sm font-mono font-semibold mb-3 uppercase tracking-wider flex items-center gap-2">
-                  <span className="w-5 h-[1px] bg-[var(--accent-primary)] opacity-40" />
-                  {skillCategoryLabels[category]}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {skills[category].map((skill, skillIndex) => (
-                    <motion.span
-                      key={skill}
-                      className="tech-pill cursor-default"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.3, delay: catIndex * 0.08 + skillIndex * 0.04 }}
-                      whileHover={{
-                        y: -5,
-                        scale: 1.08,
-                        boxShadow: "0 0 20px rgba(0,255,136,0.15)",
-                        borderColor: "rgba(0,255,136,0.3)",
+          <SkillCharts />
+        </motion.div>
+
+        {/* ── Bottom row: bento grid of category cards ── */}
+        <div>
+          {/* Section label */}
+          <div className="flex items-center gap-3 mb-6">
+            <span className="text-[10px] font-mono text-[var(--accent-primary)] opacity-50 uppercase tracking-[0.2em]">Full Stack Arsenal</span>
+            <div className="flex-1 h-[1px]" style={{ background: "linear-gradient(90deg, rgba(0,255,136,0.2), transparent)" }} />
+            <span className="text-[10px] font-mono opacity-30 text-[var(--text-muted)]">{categories.reduce((acc, c) => acc + skills[c].length, 0)} skills</span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {categories.map((category, catIndex) => {
+              const meta = categoryMeta[category];
+              const skillList = skills[category];
+              return (
+                <motion.div
+                  key={category}
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: catIndex * 0.1 }}
+                  className={`relative rounded-2xl p-5 overflow-hidden group ${meta.colSpan}`}
+                  style={{
+                    background: `linear-gradient(135deg, ${meta.bg} 0%, rgba(0,6,3,0.85) 100%)`,
+                    border: `1px solid rgba(${meta.accent === "#00ff88" ? "0,255,136" : meta.accent === "#38bdf8" ? "56,189,248" : meta.accent === "#c084fc" ? "192,132,252" : meta.accent === "#fb923c" ? "251,146,60" : "244,114,182"},0.18)`,
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03)",
+                    backdropFilter: "blur(16px)",
+                  }}
+                  whileHover={{ boxShadow: `0 8px 40px rgba(0,0,0,0.6), 0 0 0 1px ${meta.accent}33, inset 0 1px 0 rgba(255,255,255,0.05)` }}
+                >
+                  {/* Top shimmer */}
+                  <div className="absolute top-0 left-4 right-4 h-[1px] rounded-full"
+                    style={{ background: `linear-gradient(90deg, transparent, ${meta.accent}55, transparent)` }}
+                  />
+
+                  {/* Decorative large icon */}
+                  <div
+                    className="absolute bottom-3 right-4 text-6xl font-black select-none pointer-events-none transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1"
+                    style={{ color: meta.accent, opacity: 0.07, fontFamily: "monospace", lineHeight: 1 }}
+                  >
+                    {meta.icon}
+                  </div>
+
+                  {/* Corner glow */}
+                  <div className="absolute top-0 right-0 w-28 h-28 rounded-full pointer-events-none"
+                    style={{ background: `radial-gradient(circle, ${meta.glow} 0%, transparent 70%)` }}
+                  />
+
+                  {/* Header */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <p className="text-[9px] font-mono uppercase tracking-[0.18em] mb-1" style={{ color: meta.accent, opacity: 0.7 }}>Category</p>
+                      <h3 className="text-[13px] font-semibold text-[var(--text-primary)] leading-tight">
+                        {skillCategoryLabels[category]}
+                      </h3>
+                    </div>
+                    {/* Count badge */}
+                    <div
+                      className="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-[11px] font-bold font-mono ml-2"
+                      style={{
+                        background: `${meta.accent}18`,
+                        border: `1px solid ${meta.accent}40`,
+                        color: meta.accent,
                       }}
                     >
-                      <span className="mr-1.5 opacity-60">{skillIcons[skill] || "•"}</span>
-                      {skill}
-                    </motion.span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+                      {skillList.length}
+                    </div>
+                  </div>
+
+                  {/* Pills */}
+                  <div className="flex flex-wrap gap-1.5">
+                    {skillList.map((skill, skillIndex) => (
+                      <motion.div
+                        key={skill}
+                        initial={{ opacity: 0, scale: 0.85 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.25, delay: catIndex * 0.06 + skillIndex * 0.035 }}
+                        whileHover={{ y: -3, scale: 1.07 }}
+                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg cursor-default"
+                        style={{
+                          background: `${meta.accent}0d`,
+                          border: `1px solid ${meta.accent}28`,
+                          boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+                          transition: "border-color 0.2s, box-shadow 0.2s",
+                        }}
+                        onHoverStart={(e) => {
+                          (e.target as HTMLElement).style.borderColor = `${meta.accent}70`;
+                          (e.target as HTMLElement).style.boxShadow = `0 0 12px ${meta.accent}22, 0 4px 12px rgba(0,0,0,0.4)`;
+                        }}
+                        onHoverEnd={(e) => {
+                          (e.target as HTMLElement).style.borderColor = `${meta.accent}28`;
+                          (e.target as HTMLElement).style.boxShadow = "0 2px 8px rgba(0,0,0,0.3)";
+                        }}
+                      >
+                        <span className="text-[10px]" style={{ color: meta.accent, opacity: 0.8 }}>
+                          {skillIcons[skill] || "•"}
+                        </span>
+                        <span className="text-[11px] font-mono font-medium text-[var(--text-primary)]">{skill}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

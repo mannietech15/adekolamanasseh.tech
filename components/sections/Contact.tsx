@@ -330,21 +330,7 @@ export function Contact() {
           </motion.div>
         </div>
 
-        {/* ── Footer ───────────────────────────────────────────── */}
-        <div className="border-t border-[var(--border)] pt-8">
-          <p className="text-[var(--text-muted)] text-sm font-mono text-center">
-            Designed &amp; Built by{" "}
-            <span className="text-[var(--accent-primary)]">Adekola Manasseh</span>{" "}
-            <motion.span
-              className="inline-block text-[var(--accent-primary)]"
-              animate={{ scale: [1, 1.3, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-            >
-              •
-            </motion.span>{" "}
-            2025
-          </p>
-        </div>
+
       </div>
     </section>
   );

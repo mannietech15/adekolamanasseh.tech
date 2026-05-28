@@ -220,28 +220,89 @@ export function Contact() {
             <motion.button
               onClick={handleSend}
               disabled={!name.trim() || !message.trim()}
-              className="w-full py-3.5 rounded-xl font-semibold text-sm flex items-center justify-center gap-2.5 transition-all duration-300 relative overflow-hidden group disabled:opacity-40 disabled:cursor-not-allowed"
+              className="relative w-full overflow-hidden rounded-xl font-semibold text-sm disabled:opacity-40 disabled:cursor-not-allowed group"
               style={{
+                padding: "1px",
                 background: sent
-                  ? "rgba(0,255,136,0.15)"
-                  : "linear-gradient(135deg, #00ff88 0%, #00cc6a 100%)",
-                color: sent ? "#00ff88" : "#000",
+                  ? "linear-gradient(135deg, rgba(0,255,136,0.4), rgba(0,204,106,0.2))"
+                  : "linear-gradient(135deg, #00ff88, #00cc6a, #00ff88)",
+                boxShadow: sent
+                  ? "0 0 24px rgba(0,255,136,0.25), 0 4px 20px rgba(0,0,0,0.4)"
+                  : "0 0 0 rgba(0,255,136,0)",
               }}
-              whileHover={!name.trim() || !message.trim() ? {} : { scale: 1.02, y: -2 }}
-              whileTap={!name.trim() || !message.trim() ? {} : { scale: 0.98 }}
+              whileHover={
+                !name.trim() || !message.trim()
+                  ? {}
+                  : {
+                      scale: 1.015,
+                      y: -2,
+                      boxShadow: "0 0 32px rgba(0,255,136,0.45), 0 8px 32px rgba(0,0,0,0.5)",
+                    }
+              }
+              whileTap={!name.trim() || !message.trim() ? {} : { scale: 0.97 }}
+              transition={{ duration: 0.2 }}
             >
-              {sent ? (
-                <>
-                  <span>✓</span>
-                  <span>Opening WhatsApp…</span>
-                </>
-              ) : (
-                <>
-                  <WhatsAppIcon size={18} />
-                  <span>Send on WhatsApp</span>
-                  <Send size={15} className="ml-auto group-hover:translate-x-0.5 transition-transform" />
-                </>
-              )}
+              {/* Inner fill */}
+              <div
+                className="relative flex items-center justify-center gap-3 w-full rounded-[11px] px-5 py-3.5 overflow-hidden"
+                style={{
+                  background: sent
+                    ? "rgba(0,10,5,0.9)"
+                    : "linear-gradient(135deg, #00e87a 0%, #00c860 60%, #00a84e 100%)",
+                  color: sent ? "#00ff88" : "#001a0a",
+                }}
+              >
+                {/* Shimmer sweep — visible on hover */}
+                <motion.div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    background:
+                      "linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.28) 50%, transparent 70%)",
+                    transform: "translateX(-100%)",
+                  }}
+                  animate={!name.trim() || !message.trim() ? {} : { transform: ["translateX(-100%)", "translateX(200%)"] }}
+                  transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 1.2, ease: "easeInOut" }}
+                />
+
+                {sent ? (
+                  <>
+                    {/* Success pulse ring */}
+                    <motion.div
+                      className="w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0"
+                      style={{ borderColor: "#00ff88" }}
+                      animate={{ scale: [1, 1.3, 1], opacity: [1, 0.5, 1] }}
+                      transition={{ duration: 1.2, repeat: Infinity }}
+                    >
+                      <span className="text-[10px] font-bold text-[#00ff88]">✓</span>
+                    </motion.div>
+                    <span className="font-semibold tracking-wide">Opening WhatsApp…</span>
+                  </>
+                ) : (
+                  <>
+                    {/* Icon with subtle pulse ring behind it */}
+                    <div className="relative flex-shrink-0">
+                      <motion.div
+                        className="absolute inset-[-4px] rounded-full"
+                        style={{ background: "rgba(0,0,0,0.15)" }}
+                        animate={{ scale: [1, 1.5, 1], opacity: [0.5, 0, 0.5] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                      />
+                      <WhatsAppIcon size={19} />
+                    </div>
+
+                    <span className="font-bold tracking-wide">Send on WhatsApp</span>
+
+                    {/* Arrow with slide animation */}
+                    <motion.div
+                      className="ml-auto flex items-center"
+                      animate={{ x: [0, 3, 0] }}
+                      transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <Send size={14} />
+                    </motion.div>
+                  </>
+                )}
+              </div>
             </motion.button>
           </motion.div>
 

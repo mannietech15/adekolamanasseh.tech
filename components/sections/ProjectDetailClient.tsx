@@ -133,7 +133,7 @@ function HeroSection({ project }: { project: Project }) {
         >
           {/* Status badge */}
           <span
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-semibold"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-mono font-black"
             style={{ background: status.bg, color: status.color, border: `1px solid ${status.color}30` }}
           >
             <span

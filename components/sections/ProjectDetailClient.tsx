@@ -27,7 +27,7 @@ interface Props {
 }
 
 const statusConfig = {
-  live: { label: "Live", color: "#00ff88", bg: "rgba(0,255,136,0.1)", dot: "#00ff88" },
+  live: { label: "Live", color: "#000000", bg: "#00ff88", dot: "#000000" },
   "in-progress": { label: "In Progress", color: "#fbbf24", bg: "rgba(251,191,36,0.1)", dot: "#fbbf24" },
   archived: { label: "Archived", color: "#8aad9a", bg: "rgba(138,173,154,0.1)", dot: "#8aad9a" },
 };

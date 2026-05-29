@@ -2,6 +2,8 @@ import { notFound } from "next/navigation";
 import { projects } from "@/data/projects";
 import type { Metadata } from "next";
 import { ProjectDetailClient } from "@/components/sections/ProjectDetailClient";
+import { TopNav } from "@/components/ui/TopNav";
+import { Footer } from "@/components/sections/Footer";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -26,5 +28,11 @@ export default async function ProjectPage({ params }: Props) {
   const project = projects.find((p) => p.id === id);
   if (!project) notFound();
 
-  return <ProjectDetailClient project={project} />;
+  return (
+    <>
+      <TopNav />
+      <ProjectDetailClient project={project} />
+      <Footer />
+    </>
+  );
 }

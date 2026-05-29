@@ -4,6 +4,7 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
 
 const navLinks = [
   { id: "hero",       label: "Home" },
@@ -15,7 +16,12 @@ const navLinks = [
 ];
 
 export function TopNav() {
-  const activeSection = useScrollSpy();
+  const activeSectionSpy = useScrollSpy();
+  const pathname = usePathname();
+  const router = useRouter();
+  
+  const activeSection = pathname === "/" ? activeSectionSpy : (pathname.startsWith("/projects") ? "projects" : "");
+
   const [scrolled, setScrolled]   = useState(false);
   const [menuOpen, setMenuOpen]   = useState(false);
   const { scrollY } = useScroll();
@@ -26,8 +32,12 @@ export function TopNav() {
   });
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
+    if (pathname !== "/") {
+      router.push(id === "hero" ? "/" : `/#${id}`);
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   const glassStyle = {

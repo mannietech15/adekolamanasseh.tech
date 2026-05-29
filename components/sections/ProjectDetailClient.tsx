@@ -184,7 +184,7 @@ function HeroSection({ project }: { project: Project }) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed max-w-2xl mb-8"
+          className="text-lg md:text-xl text-[var(--text-secondary)] leading-relaxed mb-8"
         >
           {project.description}
         </motion.p>

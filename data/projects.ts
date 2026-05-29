@@ -30,8 +30,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: "librix",
-    title: "Librix",
+    id: "allroundar",
+    title: "Allroundar",
     description:
       "A full-stack library reservation management system with real-time booking, user auth, and an elegant dashboard.",
     longDescription:

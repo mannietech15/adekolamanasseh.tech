@@ -136,7 +136,7 @@ export function Footer() {
             viewport={{ once: true }}
             custom={1}
           >
-            <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-widest mb-4">
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-4">
               Quick Links
             </h3>
             <div
@@ -170,7 +170,7 @@ export function Footer() {
             viewport={{ once: true }}
             custom={2}
           >
-            <h3 className="text-sm font-bold text-[var(--text-primary)] uppercase tracking-widest mb-4">
+            <h3 className="text-lg font-bold text-[var(--text-primary)] mb-4">
               Connect
             </h3>
             <div

@@ -89,7 +89,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
           {/* Featured Badge */}
           {project.featured && (
-            <div className="absolute top-4 left-4 z-30 px-2.5 py-1 rounded-md bg-[var(--accent-primary)] text-[var(--background)] text-xs font-semibold shadow-[0_4px_10px_rgba(0,255,136,0.2)] flex items-center">
+            <div className="absolute top-4 left-4 z-30 px-2.5 py-1 rounded-md bg-[var(--accent-primary)] text-[#050505] text-xs font-semibold shadow-lg flex items-center">
               Featured
             </div>
           )}

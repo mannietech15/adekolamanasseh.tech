@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/data/projects";
-import { ExternalLink, GitFork, ArrowUpRight } from "lucide-react";
+import { ExternalLink, GitFork, ArrowUpRight, Play } from "lucide-react";
 
 interface ProjectCardProps {
   project: Project;
@@ -209,7 +209,20 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                   <span className="group-hover/link:underline underline-offset-4">Source</span>
                 </motion.a>
               )}
-
+              {project.playstoreUrl && (
+                <motion.a
+                  href={project.playstoreUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[#00ff88] transition-colors duration-300 group/link"
+                  aria-label={`Get ${project.title} on Play Store`}
+                  whileHover={{ x: 2 }}
+                >
+                  <Play size={14} fill="currentColor" />
+                  <span className="group-hover/link:underline underline-offset-4">Play Store</span>
+                </motion.a>
+              )}
               {/* View Details */}
               <div
                 className="ml-auto flex items-center gap-1.5 text-[0.85rem] font-bold tracking-wide text-[var(--accent-primary)] transition-all duration-300"

@@ -13,6 +13,7 @@ export interface Project {
   category: "frontend" | "fullstack" | "opensource";
   liveUrl?: string;
   githubUrl?: string;
+  playstoreUrl?: string;
   featured: boolean;
   gradient: string;
   image?: string;
@@ -34,18 +35,19 @@ export const projects: Project[] = [
     id: "allroundar",
     title: "Allroundar",
     description:
-      "Comprehensive multi-service mobile and web application serving as a 'super-app' for on-demand transportation, delivery services, and professional/home-based services.",
+      "As a core member of the development team, I helped build Allroundar—a versatile platform that consolidates various transportation options (ridesharing, carpooling, luxury hires), delivery services, and a comprehensive professional marketplace. It emphasizes user convenience, safety, and seamless integration of daily essential services.",
     shortFeatures: [
       "User registration and profile management with secure authentication",
       "Multi-modal transportation services including ride-hailing and logistics",
       "Delivery services for food, general items, and specialized parcels",
     ],
     longDescription:
-      "Built a complete library management platform featuring real-time seat reservations, JWT authentication, role-based access control, and a polished dark-mode dashboard. Full CRUD operations with PostgreSQL backend and a responsive admin panel that allows librarians to manage resources, view analytics, and handle bookings from a single interface. The booking system supports concurrent users via optimistic locking to prevent double-reservations.",
+      "As a core member of the development team, I helped build Allroundar—a versatile platform that consolidates various transportation options (ridesharing, carpooling, luxury hires), delivery services, and a comprehensive professional marketplace. It emphasizes user convenience, safety, and seamless integration of daily essential services.",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Express.js", "JWT", "Tailwind CSS"],
     category: "fullstack",
     liveUrl: "https://librix.vercel.app",
     githubUrl: "https://github.com/mannietech15",
+    playstoreUrl: "https://play.google.com/store",
     featured: true,
     gradient: "from-emerald-500/20 to-cyan-500/20",
     image: "/projects/Allroundar/AllRoundar1.png",

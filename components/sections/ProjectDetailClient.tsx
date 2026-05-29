@@ -20,6 +20,7 @@ import {
   AlertTriangle,
   Lightbulb,
   Images,
+  Play,
 } from "lucide-react";
 
 interface Props {
@@ -258,6 +259,23 @@ function HeroSection({ project }: { project: Project }) {
             >
               <GitBranch size={15} />
               View Source
+            </a>
+          )}
+          {project.playstoreUrl && (
+            <a
+              href={project.playstoreUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full text-sm font-bold tracking-wide border border-[var(--border)] text-[var(--text-secondary)] hover:border-[#00ff88] hover:text-[#00ff88] hover:bg-[rgba(0,255,136,0.05)] transition-all duration-300"
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(-3px)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.transform = "translateY(0)";
+              }}
+            >
+              <Play size={15} fill="currentColor" />
+              Get on Play Store
             </a>
           )}
         </motion.div>

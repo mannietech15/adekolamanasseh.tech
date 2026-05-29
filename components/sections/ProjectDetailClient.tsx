@@ -19,6 +19,7 @@ import {
   Sparkles,
   AlertTriangle,
   Lightbulb,
+  Images,
 } from "lucide-react";
 
 interface Props {
@@ -282,6 +283,8 @@ function GallerySection({ project }: { project: Project }) {
       transition={{ duration: 0.6 }}
       className="mb-16"
     >
+      <SectionHeading icon={<Images size={18} />} title="Project Gallery" accentColor={project.accentColor} />
+
       {/* Main image */}
       <div
         className="relative w-full rounded-2xl overflow-hidden mb-4 group"

@@ -65,11 +65,16 @@ export const projects: Project[] = [
     role: "Full-Stack Developer",
     duration: "6 weeks",
     highlights: [
-      "Built end-to-end JWT authentication with refresh-token rotation",
-      "Implemented role-based access (admin, librarian, member) with server-side guards",
-      "Designed a real-time seat reservation engine with optimistic locking to prevent double bookings",
-      "Created a dark-mode admin dashboard with analytics charts (Chart.js)",
-      "Deployed to Vercel + Railway with CI/CD via GitHub Actions",
+      "Integrating diverse services (transport, delivery, marketplace) into a single intuitive platform",
+      "Ensuring real-time tracking and matching algorithms perform efficiently at scale",
+      "Implementing robust safety and verification processes across user roles",
+      "Handling secure payments and instant payouts with multiple gateways",
+      "Balancing cross-platform compatibility for mobile and web",
+      "Designed modular architecture to separate service modules while maintaining unified UI/UX",
+      "Utilized optimized algorithms and cloud services for real-time GPS and matching",
+      "Integrated third-party verification APIs and encrypted storage for safety features",
+      "Leveraged payment SDKs with fallback mechanisms and scheduled batch processing",
+      "Built with React Native for mobile and React for web to share codebase",
     ],
     metrics: [
       { label: "Reservations Processed", value: "500+", icon: "📅" },
@@ -78,7 +83,7 @@ export const projects: Project[] = [
       { label: "Lighthouse Score", value: "96", icon: "🏆" },
     ],
     challenges:
-      "The biggest challenge was building a conflict-free concurrent booking system. I solved it using PostgreSQL advisory locks combined with optimistic concurrency on the frontend — if a seat is taken mid-flow, the UI gracefully recovers with a toast notification and refreshes available slots.",
+      "Developing a comprehensive super-app like Allroundar presented unique architectural and UX challenges. The primary focus was balancing a massive feature set—spanning transportation, delivery, and professional services—while maintaining high performance, real-time synchronization, and a seamless, intuitive user experience across both web and mobile platforms.",
     accentColor: "#00ff88",
   },
   {

@@ -266,7 +266,14 @@ function HeroSection({ project }: { project: Project }) {
 }
 
 function GallerySection({ project }: { project: Project }) {
-  if (!project.image) return null;
+  const images = project.gallery?.length ? project.gallery : project.image ? [project.image] : [];
+  if (!images.length) return null;
+
+  const [active, setActive] = useState(0);
+
+  function prev() { setActive((i) => (i <= 0 ? images.length - 1 : i - 1)); }
+  function next() { setActive((i) => (i >= images.length - 1 ? 0 : i + 1)); }
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 30 }}
@@ -275,8 +282,9 @@ function GallerySection({ project }: { project: Project }) {
       transition={{ duration: 0.6 }}
       className="mb-16"
     >
+      {/* Main image */}
       <div
-        className="relative w-full rounded-2xl overflow-hidden"
+        className="relative w-full rounded-2xl overflow-hidden mb-4 group"
         style={{
           border: `1px solid ${project.accentColor}30`,
           boxShadow: `0 20px 60px rgba(0,0,0,0.5), 0 0 40px ${project.accentColor}10`,
@@ -287,18 +295,87 @@ function GallerySection({ project }: { project: Project }) {
           className="absolute top-0 left-0 right-0 h-[3px] z-10"
           style={{ background: `linear-gradient(90deg, ${project.accentColor}, ${project.accentColor}80, transparent)` }}
         />
-        <div className="relative w-full aspect-video">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover"
-            priority
-          />
-          {/* Subtle bottom fade */}
+
+        {/* Main image area */}
+        <div className="relative w-full aspect-video bg-black">
+          <motion.div
+            key={active}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.4 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={images[active]}
+              alt={`${project.title} screenshot ${active + 1}`}
+              fill
+              className="object-cover"
+              priority={active === 0}
+            />
+          </motion.div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none" />
         </div>
+
+        {/* Prev button */}
+        <button
+          onClick={prev}
+          aria-label="Previous image"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+          style={{ background: "rgba(0,0,0,0.65)", border: `1px solid ${project.accentColor}30` }}
+        >
+          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        {/* Next button */}
+        <button
+          onClick={next}
+          aria-label="Next image"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+          style={{ background: "rgba(0,0,0,0.65)", border: `1px solid ${project.accentColor}30` }}
+        >
+          <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Image counter */}
+        <div
+          className="absolute bottom-3 right-3 z-20 px-2.5 py-1 rounded-full text-xs font-mono"
+          style={{ background: "rgba(0,0,0,0.6)", color: project.accentColor, border: `1px solid ${project.accentColor}25` }}
+        >
+          {active + 1} / {images.length}
+        </div>
       </div>
+
+      {/* Thumbnail strip */}
+      {images.length > 1 && (
+        <div className="flex gap-3 overflow-x-auto pb-1" style={{ scrollbarWidth: "none" }}>
+          {images.map((src, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              aria-label={`View screenshot ${i + 1}`}
+              className="shrink-0 relative rounded-lg overflow-hidden transition-all duration-300"
+              style={{
+                width: 120,
+                height: 72,
+                border: i === active
+                  ? `2px solid ${project.accentColor}`
+                  : "2px solid rgba(255,255,255,0.08)",
+                boxShadow: i === active ? `0 0 14px ${project.accentColor}50` : "none",
+                transform: i === active ? "scale(1.05)" : "scale(1)",
+              }}
+            >
+              <Image src={src} alt={`Thumbnail ${i + 1}`} fill className="object-cover" />
+              {i !== active && (
+                <div className="absolute inset-0 bg-black/40 hover:bg-black/10 transition-all duration-300" />
+              )}
+            </button>
+          ))}
+        </div>
+      )}
     </motion.section>
   );
 }

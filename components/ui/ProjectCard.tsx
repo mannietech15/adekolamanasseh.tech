@@ -210,15 +210,14 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                 </motion.a>
               )}
 
-              {/* View Details — appears on hover */}
-              <motion.div
-                className="ml-auto flex items-center gap-1.5 text-xs font-mono font-semibold text-[var(--accent-primary)] opacity-0 group-hover:opacity-100 transition-all duration-300"
-                initial={{ x: 8 }}
-                whileInView={{ x: 0 }}
+              {/* View Details */}
+              <div
+                className="ml-auto flex items-center gap-1.5 text-[0.85rem] font-bold tracking-wide text-[var(--accent-primary)] transition-all duration-300"
+                style={{ fontFamily: "var(--font-outfit), sans-serif" }}
               >
                 View Details
-                <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-              </motion.div>
+                <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+              </div>
             </div>
           </div>
 

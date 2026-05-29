@@ -87,6 +87,14 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             }}
           />
 
+          {/* Featured Badge */}
+          {project.featured && (
+            <div className="absolute top-4 left-4 z-30 px-2.5 py-1 rounded-full bg-[var(--accent-primary)] text-[var(--background)] text-[0.65rem] font-bold uppercase tracking-widest shadow-[0_4px_10px_rgba(0,255,136,0.2)] flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[var(--background)] animate-pulse" />
+              Featured
+            </div>
+          )}
+
           {/* Project visual header */}
           <div
             className={`relative h-52 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}

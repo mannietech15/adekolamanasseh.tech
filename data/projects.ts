@@ -74,7 +74,12 @@ export const projects: Project[] = [
     id: "finovatex",
     title: "FinovateX",
     description:
-      "FinovateX is a premium stock market intelligence platform engineered for the modern investor — delivering real-time price feeds, institutional-grade data visualization, and smart portfolio analytics to transform raw market data into confident, informed decisions.",
+      "A premium stock market analysis platform providing real-time price tracking, historical data visualization, and personalized portfolio management for modern investors.",
+    shortFeatures: [
+      "Real-time stock price monitoring with low-latency updates",
+      "Interactive technical analysis charts and market indicators",
+      "Comprehensive portfolio tracking and performance analytics",
+    ],
     longDescription:
       "FinovateX redefines how investors interact with financial markets. Built on a high-performance Next.js architecture with server-side rendering, the platform pulls live market data from the Alpha Vantage API and presents it through a suite of sophisticated, interactive charts — candlestick views, multi-stock overlays, and 30-day trend lines with custom tooltips and zoom controls. At its core sits a layered caching engine: in-memory storage for high-frequency tickers and localStorage persistence for session continuity, achieving an ~87% cache hit rate that keeps the experience blazing fast while operating entirely within the free API tier. Users can build and monitor personalised watchlists, track portfolio performance in real time, and set price alerts that trigger via periodic background refetches — all within a sleek, dark-mode interface designed to feel as premium as the data it delivers.",
     stack: ["Next.js", "TypeScript", "Node.js", "REST API", "Recharts", "Vercel"],

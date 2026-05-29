@@ -3,8 +3,9 @@
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { Project } from "@/data/projects";
-import { ExternalLink, GitFork } from "lucide-react";
+import { ExternalLink, GitFork, ArrowUpRight } from "lucide-react";
 
 interface ProjectCardProps {
   project: Project;
@@ -59,6 +60,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
       transition={{ duration: 0.6, delay: index * 0.12, ease: [0.25, 0.46, 0.45, 0.94] }}
       style={{ perspective: 1200 }}
     >
+      <Link href={`/projects/${project.id}`} className="block h-full" tabIndex={-1} aria-label={`View ${project.title} details`}>
       <motion.div
         ref={cardRef}
         className="relative group cursor-pointer h-full"
@@ -170,6 +172,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors duration-300 group/link"
                   aria-label={`Live demo of ${project.title}`}
                   whileHover={{ x: 2 }}
@@ -183,6 +186,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
                   className="flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-colors duration-300 group/link"
                   aria-label={`GitHub repository for ${project.title}`}
                   whileHover={{ x: 2 }}
@@ -191,6 +195,16 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
                   <span className="group-hover/link:underline underline-offset-4">Source</span>
                 </motion.a>
               )}
+
+              {/* View Details — appears on hover */}
+              <motion.div
+                className="ml-auto flex items-center gap-1.5 text-xs font-mono font-semibold text-[var(--accent-primary)] opacity-0 group-hover:opacity-100 transition-all duration-300"
+                initial={{ x: 8 }}
+                whileInView={{ x: 0 }}
+              >
+                View Details
+                <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
+              </motion.div>
             </div>
           </div>
 
@@ -201,6 +215,7 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
           <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-br from-[rgba(0,255,136,0.15)] via-transparent to-[rgba(0,255,213,0.1)] opacity-0 group-hover:opacity-100 transition-opacity duration-700 -z-10 blur-sm" />
         </div>
       </motion.div>
+      </Link>
     </motion.div>
   );
 }

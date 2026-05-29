@@ -152,9 +152,23 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
             <h3 className="text-xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent-primary)] transition-colors duration-300">
               {project.title}
             </h3>
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-5">
+            <p className={`text-sm text-[var(--text-secondary)] leading-relaxed ${project.shortFeatures ? 'mb-4' : 'mb-5'}`}>
               {project.description}
             </p>
+
+            {project.shortFeatures && (
+              <div className="mb-5">
+                <h4 className="text-sm font-bold text-[var(--text-primary)] mb-2">Key Features:</h4>
+                <ul className="space-y-2">
+                  {project.shortFeatures.map((feature, i) => (
+                    <li key={i} className="text-sm text-[var(--text-secondary)] flex items-start">
+                      <span className="text-[var(--accent-primary)] mr-2 mt-0.5">•</span>
+                      <span className="flex-1 leading-relaxed">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Tech stack pills */}
             <div className="flex flex-wrap gap-2 mb-5">

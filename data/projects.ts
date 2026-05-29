@@ -17,6 +17,7 @@ export interface Project {
   gradient: string;
   image?: string;
   gallery?: string[];
+  shortFeatures?: string[];
   // Detail page fields
   year: string;
   status: "live" | "in-progress" | "archived";
@@ -33,7 +34,12 @@ export const projects: Project[] = [
     id: "allroundar",
     title: "Allroundar",
     description:
-      "A full-stack library reservation management system with real-time booking, user auth, and an elegant dashboard.",
+      "Comprehensive multi-service mobile and web application serving as a 'super-app' for on-demand transportation, delivery services, and professional/home-based services.",
+    shortFeatures: [
+      "User registration and profile management with secure authentication",
+      "Multi-modal transportation services including ride-hailing and logistics",
+      "Delivery services for food, general items, and specialized parcels",
+    ],
     longDescription:
       "Built a complete library management platform featuring real-time seat reservations, JWT authentication, role-based access control, and a polished dark-mode dashboard. Full CRUD operations with PostgreSQL backend and a responsive admin panel that allows librarians to manage resources, view analytics, and handle bookings from a single interface. The booking system supports concurrent users via optimistic locking to prevent double-reservations.",
     stack: ["Next.js", "TypeScript", "PostgreSQL", "Express.js", "JWT", "Tailwind CSS"],

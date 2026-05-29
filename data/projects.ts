@@ -16,6 +16,7 @@ export interface Project {
   featured: boolean;
   gradient: string;
   image?: string;
+  gallery?: string[];
   // Detail page fields
   year: string;
   status: "live" | "in-progress" | "archived";
@@ -77,6 +78,15 @@ export const projects: Project[] = [
     featured: true,
     gradient: "from-green-500/20 to-emerald-500/20",
     image: "/projects/finovatex.png",
+    gallery: [
+      "/projects/finovatex/finovatex.png",
+      "/projects/finovatex/fin1.png",
+      "/projects/finovatex/fin3.png",
+      "/projects/finovatex/fin4.png",
+      "/projects/finovatex/fin7.png",
+      "/projects/finovatex/chartFin.png",
+      "/projects/finovatex/chartFin2.png",
+    ],
     year: "2024",
     status: "live",
     role: "Frontend + API Integration",
